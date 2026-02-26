@@ -37,18 +37,17 @@
     font-family: 'Cormorant Garamond', 'Prompt', serif;
   }
 
-  /* --- Custom Cursor & ละอองใบไม้ (Particle Trail) --- */
+/* --- Custom Cursor & ละอองใบไม้ (Particle Trail) --- */
   .cursor {
     width: 12px; height: 12px;
-    background: var(--accent); /* ใช้สีทอง */
-    border-radius: 2px 50% 50% 50%; /* ทำให้เป็นรูปทรงใบไม้/หยดน้ำ */
+    background: var(--navy); /* ⭐️ เปลี่ยนเป็นสีน้ำเงินกรมท่า */
+    border-radius: 2px 50% 50% 50%;
     position: fixed;
     top: 0; left: 0;
     pointer-events: none;
     z-index: 99999;
-    /* หมุนรูปทรงให้เฉียงขึ้น */
     transform: translate(-50%, -50%) rotate(-45deg);
-    transition: width 0.3s var(--transition), height 0.3s var(--transition), border-radius 0.3s;
+    transition: width 0.3s var(--transition), height 0.3s var(--transition), border-radius 0.3s, background 0.3s, transform 0.2s;
     mix-blend-mode: multiply;
   }
   .cursor-ring {
@@ -67,7 +66,7 @@
   .cursor.hover { 
     width: 24px; height: 24px; 
     border-radius: 50%; 
-    background: var(--accent); 
+    background: var(--accent); /* ⭐️ ทริค: คงสีทองไว้ตอนชี้ปุ่ม จะได้ตัดกับสีปุ่มที่เป็นสีน้ำเงิน */
     transform: translate(-50%, -50%) rotate(0deg); 
   }
   .cursor-ring.hover { width: 60px; height: 60px; opacity: 0.2; }
@@ -77,14 +76,13 @@
     position: fixed;
     top: 0; left: 0;
     width: 8px; height: 8px;
-    background: var(--accent);
-    border-radius: 0 50% 50% 50%; /* ทรงใบไม้เล็กๆ */
+    background: var(--accent); /* ⭐️ เปลี่ยนละอองเป็นสีน้ำเงินกรมท่า */
+    border-radius: 0 50% 50% 50%;
     pointer-events: none;
     z-index: 99997;
     opacity: 0.8;
     transform: translate(-50%, -50%);
-    /* สั่งให้เล่นแอนิเมชันร่วงหล่น */
-    animation: fallFade 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fallFade 3s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
   /* แอนิเมชันร่วง กระจายออก และเฟดหายไป */
@@ -95,7 +93,6 @@
     }
     100% { 
       opacity: 0; 
-      /* ใช้ค่าตัวแปรจาก JS เพื่อสุ่มทิศทางร่วง */
       transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0) rotate(var(--drot)); 
     }
   }
