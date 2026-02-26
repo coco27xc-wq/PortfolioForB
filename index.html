@@ -775,35 +775,30 @@
 
   /* Mobile */
 /* Mobile */
-  @media (max-width: 900px) {
-    nav, section, footer { padding-left: 28px; padding-right: 28px; }
-    nav.scrolled { padding-left: 28px; padding-right: 28px; }
-    .hero-scroll-hint { left: 28px; }
-    #home { padding: 100px 28px 80px; }
-    .services-header { grid-template-columns: 1fr; }
-    .services-grid { grid-template-columns: 1fr; }
-    #contact { grid-template-columns: 1fr; gap: 60px; }
-    .form-row { grid-template-columns: 1fr; }
-    
-    .portfolio-grid.layout-1,
-    .portfolio-grid.layout-2,
-    .portfolio-grid.layout-half { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .pricing-panel.active { grid-template-columns: 1fr; }
+/* ⭐️ จัดระเบียบหน้า Pricing ให้การ์ดทั้ง 2 ใบอยู่กึ่งกลางจอ ⭐️ */
+  #pricing-individual.active, #pricing-package.active {
+    display: grid !important;
+    /* บังคับขนาดการ์ดไม่ให้ยืดกว้างเกินไป และจัดกึ่งกลาง (ปรับเลข 480px ได้ตามต้องการ) */
+    grid-template-columns: repeat(2, minmax(320px, 480px)) !important;
+    justify-content: center !important;
+    gap: 50px !important;
+    margin: 0 auto;
+  }
 
-    /* ⭐️ เพิ่มตรงนี้ครับ ⭐️ */
-    #pricing-individual {
-      grid-template-columns: 1fr !important; 
+  /* สำหรับหน้าจอมือถือ (ปรับให้เหลือ 1 คอลัมน์และอยู่ตรงกลาง) */
+  @media (max-width: 900px) {
+    #pricing-individual.active, #pricing-package.active {
+      grid-template-columns: minmax(280px, 500px) !important;
+      justify-content: center !important;
     }
+  }
 
     footer { grid-template-columns: 1fr; }
     .footer-links { flex-wrap: wrap; gap: 20px; }
     .nav-links { gap: 24px; }
     body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
-  }
+  
 
   /* --- ปุ่มแว่นขยายดูภาพเต็ม --- */
   .zoom-btn {
@@ -879,6 +874,7 @@
     <li><a href="#home">หน้าแรก</a></li>
     <li><a href="#services">บริการของเรา</a></li>
     <li><a href="#portfolio">ผลงาน</a></li>
+    <li><a href="#pricing">ราคาและแพ็กเกจ</a></li>
     <li><a href="#contact">ติดต่อเรา</a></li>
   </ul>
 </nav>
@@ -891,7 +887,7 @@
   <div class="hero-circle c2"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">สตูดิโอออกแบบ · ก่อตั้งปี 2026</div>
-    <h1 class="hero-title">เราสร้างสรรค์เรื่องราว<br>ผ่าน<em>งานศิลปะ</em></h1>
+    <h1 class="hero-title">เราสร้างสรรค์เรื่องราวผ่าน<br><em>งานศิลปะ</em></h1>
     <p class="hero-sub">สตูดิโอออกแบบที่เชี่ยวชาญด้านการออกแบบคาแรคเตอร์, คอนเซปต์อาร์ต, และงานภาพเพื่อสร้างแบรนด์ เราพร้อมเนรมิตโลกแห่งจินตนาการของคุณให้เป็นจริงด้วยความตั้งใจและประณีต</p>
     <div class="hero-cta">
       <a href="#portfolio" class="btn-primary"><span>ดูผลงานของเรา</span></a>
@@ -1213,8 +1209,9 @@
     <button class="ptoggle" data-pricing="package">Package</button>
   </div>
 
-  <div class="pricing-panels">
-    <div class="pricing-panel active" id="pricing-individual" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: left;">
+<div class="pricing-panels">
+    
+    <div class="pricing-panel active" id="pricing-individual">
       
       <div class="price-category reveal reveal-delay-2" style="background: var(--cream); padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
         <h3 class="price-name" style="text-align: center; font-size: 1.5rem; margin-bottom: 10px;">Character Design</h3>
@@ -1249,7 +1246,6 @@
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 40px;">
-        
         <div class="price-category reveal reveal-delay-3" style="background: var(--cream); padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
           <h3 class="price-name" style="text-align: center; font-size: 1.5rem; margin-bottom: 10px;">Chibi Art</h3>
           <p style="text-align: center; font-size: 0.9rem; color: var(--navy-muted); margin-bottom: 30px; line-height: 1.6;">
@@ -1287,15 +1283,77 @@
             <span>100</span>
           </div>
         </div>
-
       </div>
     </div>
 
-    <div class="pricing-panel" id="pricing-package" style="text-align: center; padding: 50px;">
-      <h3 style="font-size: 1.8rem; color: var(--navy-muted);">Coming Soon</h3>
-      <p style="margin-top: 10px; color: rgba(17,34,64,0.6);">รายละเอียดแบบแพ็กเกจกำลังจะมาเร็วๆ นี้</p>
-    </div>
+    <div class="pricing-panel" id="pricing-package">
+      
+      <div class="price-card reveal" style="background: var(--cream); border: 2px solid rgba(17,34,64,0.05); border-radius: 15px; padding: 40px; text-align: center; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+        <h3 class="price-name" style="font-weight: 600; font-size: 1.6rem; color: var(--navy); margin-bottom: 24px;">Novel Cover Package</h3>
+        
+        <div style="display: flex; justify-content: center; align-items: baseline; gap: 12px; margin-bottom: 30px;">
+          <span style="font-family: 'DM Sans', sans-serif; font-size: 2.5rem; font-weight: 600; color: var(--navy);">฿800</span>
+          <span style="text-decoration: line-through; color: var(--navy-muted); font-size: 1.2rem;">฿870</span>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; padding-top: 20px; flex-grow: 1;">
+          <div style="text-align: left;">
+            <p style="font-weight: 600; color: var(--navy); margin-bottom: 20px; font-size: 0.95rem;">Package Includes:</p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px; padding: 0;">
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Character Design (หัว-อก)
+              </li>
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Chibi Art
+              </li>
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Typography
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="margin-top: 35px; padding-top: 20px; border-top: 1px solid rgba(17,34,64,0.1);">
+          <p style="font-size: 0.85rem; color: var(--navy-muted);">เชิงพาณิชย์ราคา x 2</p>
+        </div>
+      </div>
 
+      <div class="price-card reveal reveal-delay-1" style="background: var(--cream); border: 2px solid rgba(17,34,64,0.05); border-radius: 15px; padding: 40px; text-align: center; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+        <h3 class="price-name" style="font-weight: 600; font-size: 1.6rem; color: var(--navy); margin-bottom: 24px;">Game Character Package</h3>
+        
+        <div style="display: flex; justify-content: center; align-items: baseline; gap: 12px; margin-bottom: 30px;">
+          <span style="font-family: 'DM Sans', sans-serif; font-size: 2.5rem; font-weight: 600; color: var(--navy);">฿1700</span>
+          <span style="text-decoration: line-through; color: var(--navy-muted); font-size: 1.2rem;">฿1770</span>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; padding-top: 20px; flex-grow: 1;">
+          <div style="text-align: left;">
+            <p style="font-weight: 600; color: var(--navy); margin-bottom: 20px; font-size: 0.95rem;">Package Includes:</p>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px; padding: 0;">
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Character Design (เต็มตัว)
+              </li>
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                2 Prop Designs
+              </li>
+              <li style="display: flex; gap: 12px; align-items: center; color: var(--navy); font-size: 0.95rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Typography
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="margin-top: 35px; padding-top: 20px; border-top: 1px solid rgba(17,34,64,0.1);">
+          <p style="font-size: 0.85rem; color: var(--navy-muted);">เชิงพาณิชย์ราคา x 2</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
