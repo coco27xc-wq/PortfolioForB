@@ -340,6 +340,27 @@
     opacity: 0;
     transition: transform 0.4s var(--transition), opacity 0.4s;
   }
+
+  /* ตกแต่งรูปภาพเบื้องหลังของการ์ดบริการ */
+.service-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    /*opacity: 0.15; /* ปรับให้ภาพจางลงเพื่อให้อ่านข้อความง่าย */
+    transition: transform 0.6s var(--transition), opacity 0.6s;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ให้ภาพคลุมทั่วพื้นที่การ์ด */
+}
+
+/* เอฟเฟกต์เมื่อเอาเมาส์ชี้ (Hover) */
+.service-card:hover .service-image {
+    transform: scale(1.1); /* ขยายภาพนิดๆ */
+    opacity: 0.3; /* ให้ภาพชัดขึ้นเล็กน้อย */
+}
   .service-card:hover .service-arrow { transform: translateX(0); opacity: 1; }
 
   /* Portfolio */
@@ -829,37 +850,56 @@
     </div>
     <p class="services-intro reveal reveal-delay-2">ทุกโปรเจกต์เริ่มต้นจากการรับฟังอย่างเข้าใจ เราไม่เพียงแค่ออกแบบ แต่เราถ่ายทอดวิสัยทัศน์ของคุณให้ออกมาเป็นภาพที่สื่อความหมายได้ชัดเจน</p>
   </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
+<div class="services-grid">
+    <a href="#portfolio" class="service-card reveal service-link" data-target="char" style="text-decoration: none; display: block;">
+      <div class="service-image">
+        <img src="assets/images/character/char2.png" alt="">
+      </div>
       <span class="service-num">01</span>
       <h3 class="service-name">Character Design</h3>
       <p class="service-desc">ตั้งแต่คอนเซปต์เริ่มต้นไปจนถึงผลงานที่สมบูรณ์ สร้างคาแรคเตอร์ที่มีเอกลักษณ์และสะท้อนบุคลิกได้อย่างชัดเจน</p>
       <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
+    </a>
+
+    <a href="#portfolio" class="service-card reveal reveal-delay-1 service-link" data-target="chibi" style="text-decoration: none; display: block;">
+      <div class="service-image">
+        <img src="assets/images/chibi/ch7.jpg" alt="">
+      </div>
       <span class="service-num">02</span>
       <h3 class="service-name">Chibi Art</h3>
       <p class="service-desc">ภาพวาดตัวละครสไตล์ชิบิสุดน่ารัก เหมาะสำหรับนำไปทำสินค้า, สติกเกอร์, หรืองานดิจิทัลต่างๆ</p>
       <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
+    </a>
+
+    <a href="#portfolio" class="service-card reveal reveal-delay-2 service-link" data-target="bg" style="text-decoration: none; display: block;">
+      <div class="service-image">
+        <img src="assets/images/backgd/bg3.png" alt="">
+      </div>
       <span class="service-num">03</span>
       <h3 class="service-name">Background Design</h3>
       <p class="service-desc">สร้างสภาพแวดล้อมที่ช่วยเพิ่มมิติให้เรื่องราว ไม่ว่าจะเป็นห้องที่อบอุ่นหรือทิวทัศน์ที่กว้างใหญ่</p>
       <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card reveal reveal-delay-3">
+    </a>
+
+    <a href="#portfolio" class="service-card reveal reveal-delay-3 service-link" data-target="prop" style="text-decoration: none; display: block;">
+      <div class="service-image">
+        <img src="assets/images/prop/prop01.png" alt="">
+      </div>
       <span class="service-num">04</span>
       <h3 class="service-name">Prop Design</h3>
       <p class="service-desc">ออกแบบสิ่งของและอาวุธต่างๆ อย่างพิถีพิถัน เพื่อเติมเต็มรายละเอียดให้โลกของคุณสมบูรณ์ยิ่งขึ้น</p>
       <span class="service-arrow">→</span>
-    </div>
-    <div class="service-card reveal reveal-delay-4">
+    </a>
+
+    <a href="#portfolio" class="service-card reveal reveal-delay-4 service-link" data-target="typo" style="text-decoration: none; display: block;">
+      <div class="service-image">
+        <img src="assets/images/typo/typo3.png" alt="">
+      </div>
       <span class="service-num">05</span>
       <h3 class="service-name">Typography</h3>
       <p class="service-desc">ออกแบบตัวอักษรและจัดวางองค์ประกอบให้แบรนด์ของคุณมีเอกลักษณ์ที่น่าจดจำ</p>
       <span class="service-arrow">→</span>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1345,6 +1385,31 @@
       e.preventDefault();
       const target = document.querySelector(a.getAttribute('href'));
       if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // --- โค้ดใหม่: ทำให้คลิก Services แล้วเปิดแท็บ Portfolio ที่ถูกต้อง ---
+  document.querySelectorAll('.service-link').forEach(link => {
+    link.addEventListener('click', e => {
+      // ไม่ต้อง preventDefault เพราะเราต้องการให้มันเลื่อนไปที่ #portfolio
+      
+      const targetId = link.getAttribute('data-target'); // เช่น 'char', 'chibi'
+      
+      // 1. ล้างสถานะ active ของแท็บทั้งหมด
+      document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.portfolio-panel').forEach(p => p.classList.remove('active'));
+      
+      // 2. ไปหาปุ่มแท็บที่ตรงกันแล้วเติม active
+      const targetTab = document.querySelector(`.ptab[data-panel="${targetId}"]`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      
+      // 3. ไปหาหน้าต่างผลงานที่ตรงกันแล้วเติม active
+      const targetPanel = document.getElementById('panel-' + targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
     });
   });
 </script>
