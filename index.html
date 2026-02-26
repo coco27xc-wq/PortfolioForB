@@ -37,17 +37,18 @@
     font-family: 'Cormorant Garamond', 'Prompt', serif;
   }
 
-  /* Custom Cursor */
+  /* --- Custom Cursor & ละอองใบไม้ (Particle Trail) --- */
   .cursor {
-    width: 10px; height: 10px;
-    background: var(--navy);
-    border-radius: 50%;
+    width: 12px; height: 12px;
+    background: var(--accent); /* ใช้สีทอง */
+    border-radius: 2px 50% 50% 50%; /* ทำให้เป็นรูปทรงใบไม้/หยดน้ำ */
     position: fixed;
     top: 0; left: 0;
     pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.3s var(--transition), height 0.3s var(--transition), background 0.3s;
+    z-index: 99999;
+    /* หมุนรูปทรงให้เฉียงขึ้น */
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: width 0.3s var(--transition), height 0.3s var(--transition), border-radius 0.3s;
     mix-blend-mode: multiply;
   }
   .cursor-ring {
@@ -57,13 +58,47 @@
     position: fixed;
     top: 0; left: 0;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 99998;
     transform: translate(-50%, -50%);
     transition: left 0.12s var(--transition), top 0.12s var(--transition), width 0.3s var(--transition), height 0.3s var(--transition), opacity 0.3s;
     opacity: 0.5;
   }
-  .cursor.hover { width: 20px; height: 20px; background: var(--accent); }
+  /* เมื่อเอาเมาส์ชี้ปุ่ม ให้กลายเป็นวงกลมใหญ่ขึ้น */
+  .cursor.hover { 
+    width: 24px; height: 24px; 
+    border-radius: 50%; 
+    background: var(--accent); 
+    transform: translate(-50%, -50%) rotate(0deg); 
+  }
   .cursor-ring.hover { width: 60px; height: 60px; opacity: 0.2; }
+
+  /* ดีไซน์ของละอองที่ร่วงตามหลัง */
+  .particle {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 0 50% 50% 50%; /* ทรงใบไม้เล็กๆ */
+    pointer-events: none;
+    z-index: 99997;
+    opacity: 0.8;
+    transform: translate(-50%, -50%);
+    /* สั่งให้เล่นแอนิเมชันร่วงหล่น */
+    animation: fallFade 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* แอนิเมชันร่วง กระจายออก และเฟดหายไป */
+  @keyframes fallFade {
+    0% { 
+      opacity: 0.8; 
+      transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+    }
+    100% { 
+      opacity: 0; 
+      /* ใช้ค่าตัวแปรจาก JS เพื่อสุ่มทิศทางร่วง */
+      transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0) rotate(var(--drot)); 
+    }
+  }
 
   /* Navbar */
   nav {
@@ -774,31 +809,46 @@
   }
 
   /* Mobile */
-/* Mobile */
-/* ⭐️ จัดระเบียบหน้า Pricing ให้การ์ดทั้ง 2 ใบอยู่กึ่งกลางจอ ⭐️ */
-  #pricing-individual.active, #pricing-package.active {
-    display: grid !important;
-    /* บังคับขนาดการ์ดไม่ให้ยืดกว้างเกินไป และจัดกึ่งกลาง (ปรับเลข 480px ได้ตามต้องการ) */
-    grid-template-columns: repeat(2, minmax(320px, 480px)) !important;
-    justify-content: center !important;
-    gap: 50px !important;
-    margin: 0 auto;
-  }
-
-  /* สำหรับหน้าจอมือถือ (ปรับให้เหลือ 1 คอลัมน์และอยู่ตรงกลาง) */
   @media (max-width: 900px) {
+    nav, section, footer { padding-left: 28px; padding-right: 28px; }
+    nav.scrolled { padding-left: 28px; padding-right: 28px; }
+    .hero-scroll-hint { left: 28px; }
+    #home { padding: 100px 28px 80px; }
+    .services-header { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    #contact { grid-template-columns: 1fr; gap: 60px; }
+    .form-row { grid-template-columns: 1fr; }
+    
+    .portfolio-grid.layout-1,
+    .portfolio-grid.layout-2,
+    .portfolio-grid.layout-half { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .pricing-panel.active { grid-template-columns: 1fr; }
+
+    /* ⭐️ จัดระเบียบหน้า Pricing ให้การ์ดทั้ง 2 ใบอยู่กึ่งกลางจอ ⭐️ */
     #pricing-individual.active, #pricing-package.active {
-      grid-template-columns: minmax(280px, 500px) !important;
+      display: grid !important;
+      grid-template-columns: 1fr !important;
       justify-content: center !important;
     }
-  }
 
     footer { grid-template-columns: 1fr; }
     .footer-links { flex-wrap: wrap; gap: 20px; }
     .nav-links { gap: 24px; }
     body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
-  
+  }
+
+  /* ⭐️ จัดระเบียบหน้า Pricing Desktop ⭐️ */
+  #pricing-individual.active, #pricing-package.active {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(320px, 480px)) !important;
+    justify-content: center !important;
+    gap: 50px !important;
+    margin: 0 auto;
+  }
 
   /* --- ปุ่มแว่นขยายดูภาพเต็ม --- */
   .zoom-btn {
@@ -1447,18 +1497,27 @@
 </div>
 
 <script>
-  // Custom cursor
+  // Custom cursor & Ring
   const cursor = document.getElementById('cursor');
   const cursorRing = document.getElementById('cursorRing');
   let mouseX = 0, mouseY = 0;
   let ringX = 0, ringY = 0;
 
+  // --- ระบบ Custom Cursor และเสกละอองใบไม้ร่วง ---
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX; mouseY = e.clientY;
+    
+    // ขยับเคอร์เซอร์หลัก (ทรงหยดน้ำ) ให้ตามเมาส์ทันที
     cursor.style.left = mouseX + 'px';
     cursor.style.top = mouseY + 'px';
+
+    // สร้างละอองแบบสุ่ม (โอกาส 30% ที่จะเกิดละอองต่อการขยับเมาส์ 1 ครั้ง)
+    if (Math.random() > 0.7) {
+      createParticle(mouseX, mouseY);
+    }
   });
 
+  // ⭐️ วงแหวนวิ่งตามหลังเคอร์เซอร์หยดน้ำ ⭐️
   function animateRing() {
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
@@ -1467,6 +1526,31 @@
     requestAnimationFrame(animateRing);
   }
   animateRing();
+
+  // ฟังก์ชันเสกละออง (Particle)
+  function createParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = x + 'px';
+    particle.style.top = y + 'px';
+
+    // สุ่มทิศทางให้เหมือนใบไม้ปลิว
+    const dx = (Math.random() - 0.5) * 80 + 'px'; 
+    const dy = (Math.random() * 60 + 20) + 'px';  
+    const drot = (Math.random() * 360) + 'deg';   
+
+    // ส่งค่าทิศทางที่สุ่มได้ไปให้ CSS Animation ทำงาน
+    particle.style.setProperty('--dx', dx);
+    particle.style.setProperty('--dy', dy);
+    particle.style.setProperty('--drot', drot);
+
+    document.body.appendChild(particle);
+
+    // ลบละอองทิ้งเมื่อแอนิเมชันจบ
+    setTimeout(() => {
+      particle.remove();
+    }, 1000);
+  }
 
   // ⭐️ อัปเดตเมาส์ให้ขยายเมื่อชี้ปุ่มซูมและปุ่มปิดรูป ⭐️
   document.querySelectorAll('a, button, .portfolio-item, .service-card, .price-card, input, textarea, select, .zoom-btn, .lightbox-close').forEach(el => {
