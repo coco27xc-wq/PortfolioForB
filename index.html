@@ -1518,6 +1518,20 @@
   if (lightbox) lightbox.addEventListener('click', e => {
     if (e.target === lightbox) closeLightbox(); 
   });
+
+  //ระบบคลิกรูปใน Portfolio เพื่อดูภาพขยาย
+  document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.addEventListener('click', e => {
+      // ค้นหารูปภาพที่อยู่ข้างในกล่องที่ถูกคลิก
+      const img = item.querySelector('img');
+      
+      if (img) {
+        // เอากลับไปใส่ในหน้าต่าง Lightbox ที่มีอยู่แล้ว
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      }
+    });
+  });
 </script>
 </body>
 </html>
