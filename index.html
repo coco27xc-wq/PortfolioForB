@@ -1183,56 +1183,68 @@
 
 <section id="contact">
   <div class="contact-left">
-    <div class="section-label reveal">ติดต่อเรา</div>
-    <h2 class="section-title reveal reveal-delay-1">มาร่วมสร้างสรรค์<br>สิ่งที่<em>งดงาม</em>ไปด้วยกัน</h2>
+    <div class="section-label reveal">Get In Touch</div>
+    <h2 class="section-title reveal reveal-delay-1" style="color: var(--navy); font-weight: 500; line-height: 1.2;">
+      มาร่วมสร้างสรรค์<br><em style="color: var(--accent); font-style: italic;">ผลงานระดับพรีเมียม</em><br>ไปกับเรา
+    </h2>
+    
     <div class="contact-info">
       <div class="contact-info-item reveal reveal-delay-2">
-        <span class="contact-info-label">อีเมล</span>
-        <span class="contact-info-value">66011213358@msu.ac.h</span>
+        <span class="contact-info-label">Email</span>
+        <span class="contact-info-value" style="color: var(--navy); font-weight: 600; font-family: 'DM Sans', sans-serif;">66011213358@msu.ac.th</span>
       </div>
       <div class="contact-info-item reveal reveal-delay-3">
-        <span class="contact-info-label">สถานที่</span>
-        <span class="contact-info-value">มหาสารคาม, ประเทศไทย · รับงานออนไลน์ทั่วโลก</span>
+        <span class="contact-info-label">Location</span>
+        <span class="contact-info-value" style="color: var(--navy);">Maha Sarakham, Thailand</span>
       </div>
       <div class="contact-info-item reveal reveal-delay-4">
-        <span class="contact-info-label">ตอบกลับใน</span>
-        <span class="contact-info-value">ภายใน 24 ชั่วโมง</span>
+        <span class="contact-info-label">Response</span>
+        <span class="contact-info-value" style="color: var(--navy);">Fast Response (Within 24h)</span>
       </div>
     </div>
   </div>
+
   <div class="contact-right">
-    <div class="contact-form reveal">
+    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form reveal">
+      
+      <input type="hidden" name="access_key" value="b197f86f-b169-40a2-8441-64ee06500ea7">
+      
+      <input type="hidden" name="subject" value="มีลูกค้าติดต่อจากหน้าเว็บ RACGINE STUDIO">
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
       <div class="form-row">
         <div class="form-group">
-          <label>ชื่อ</label>
-          <input type="text" placeholder="ระบุชื่อ">
-        </div>
-        <div class="form-group">
-          <label>นามสกุล</label>
-          <input type="text" placeholder="ระบุนามสกุล">
+          <label style="color: var(--navy); font-weight: 500;">ชื่อ-นามสกุล</label>
+          <input type="text" name="name" placeholder="ระบุชื่อของคุณ" required style="border-bottom: 2px solid rgba(17,34,64,0.1);">
         </div>
       </div>
+      
       <div class="form-group">
-        <label>อีเมล</label>
-        <input type="email" placeholder="example@email.com">
+        <label style="color: var(--navy); font-weight: 500;">อีเมลติดต่อ</label>
+        <input type="email" name="email" placeholder="example@email.com" required style="border-bottom: 2px solid rgba(17,34,64,0.1);">
       </div>
+      
       <div class="form-group">
-        <label>บริการที่สนใจ</label>
-        <select>
-          <option value="">เลือกบริการ...</option>
-          <option>Character Design</option>
-          <option>Chibi Art</option>
-          <option>Background Design</option>
-          <option>Prop Design</option>
-          <option>Typography</option>
+        <label style="color: var(--navy); font-weight: 500;">บริการที่คุณสนใจ</label>
+        <select name="service" style="border-bottom: 2px solid rgba(17,34,64,0.1); color: var(--navy);">
+          <option value="Not Specified">กรุณาเลือกบริการ...</option>
+          <option value="Character Design">Character Design (ออกแบบตัวละคร)</option>
+          <option value="Chibi Art">Chibi Art (ชิบิ)</option>
+          <option value="Background Design">Background Design (ฉากหลัง)</option>
+          <option value="Prop Design">Prop Design (อาวุธ/สิ่งของ)</option>
+          <option value="Typography">Typography (ไทโปแกรฟี)</option>
         </select>
       </div>
+      
       <div class="form-group">
-        <label>ข้อความ</label>
-        <textarea placeholder="บอกเราเกี่ยวกับโปรเจกต์ของคุณสักเล็กน้อย..."></textarea>
+        <label style="color: var(--navy); font-weight: 500;">รายละเอียดโปรเจกต์</label>
+        <textarea name="message" placeholder="เล่าเรื่องราวหรือสิ่งที่ต้องการให้เราช่วยสร้างสรรค์..." required style="border-bottom: 2px solid rgba(17,34,64,0.1); min-height: 120px;"></textarea>
       </div>
-      <button class="btn-primary" style="border:none;cursor:none"><span>ส่งข้อความ</span></button>
-    </div>
+
+      <button type="submit" class="btn-primary" style="border:none; width: 100%; padding: 22px; font-weight: 600; background: var(--navy); border-radius: 8px;">
+        <span style="letter-spacing: 2px;">SEND MESSAGE</span>
+      </button>
+    </form>
   </div>
 </section>
 
